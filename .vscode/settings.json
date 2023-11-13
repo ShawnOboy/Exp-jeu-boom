@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "VBomb.sln"
+    "dotnet.defaultSolution": "Exp-jeu-boom.sln"
 }

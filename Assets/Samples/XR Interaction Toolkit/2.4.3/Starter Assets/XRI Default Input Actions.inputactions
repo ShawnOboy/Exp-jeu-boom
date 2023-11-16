@@ -403,24 +403,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Grip",
-                    "type": "Value",
-                    "id": "8c072875-6d19-4ca6-b258-17946c567836",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Trigger",
-                    "type": "Value",
-                    "id": "206be2ca-cf8f-411a-a914-4b2edb2162dc",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -630,28 +612,6 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Aim Flags",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a3365a09-f3e4-4501-b898-95225fb7b283",
-                    "path": "<XRController>{LeftHand}/grip",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Grip",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4c8d73b0-528e-4149-acfd-5157d88fe6ad",
-                    "path": "<XRController>{LeftHand}/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1159,24 +1119,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Grip",
-                    "type": "Value",
-                    "id": "d07a12e3-3233-4818-8292-66bbe99658f1",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Trigger",
-                    "type": "Value",
-                    "id": "fb987e57-11c9-4fcf-a922-ac72a782f2ea",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -1386,28 +1328,6 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Aim Flags",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ee74e8b2-a14f-4fe6-ba48-6d156887552d",
-                    "path": "<XRController>{RightHand}/grip",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Grip",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cf40e3b4-5924-4203-becf-8af27aa0a08b",
-                    "path": "<XRController>{RightHand}/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

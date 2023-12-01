@@ -5,7 +5,7 @@ using TMPro;
 using Fusion;
 using Fusion.XR.Shared.Grabbing.NetworkHandColliderBased;
 
-[RequireComponent(typeof(NetworkHandColliderGrabbable))]
+// [RequireComponent(typeof(NetworkHandColliderGrabbable))]
 public class NetworkHandColliderGrabbableCube : NetworkBehaviour
 {
     public TextMeshProUGUI authorityText;

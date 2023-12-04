@@ -5,30 +5,23 @@ using UnityEngine.UI;
 using Fusion;
 using UnityEngine.Networking;
 using UnityEditor.PackageManager;
+using UnityEngine.SceneManagement;
 
 public class StartGame : NetworkBehaviour {
-  public int playerID;
-  void Start()
-  {
-    Button button = GetComponent<Button>();
-    button.onClick.AddListener(OnClick);
-  }
+  // void Start() {
+    
+  // }
 
-  void OnClick()
-  {
-    Debug.Log("Player " + playerID + " clicked the button!");
-  }
   public void StartGameButton() {
 
     if(Object.HasStateAuthority) {
       Debug.Log("AYOOOOOOOOOOOOOOOOO");
+      SceneManager.LoadScene("Game");
+    }
+    else {
+      Debug.Log("HAHAHAHAHAHAHAHAHAHA");
     }
   }
 
 
 }
-// {
-//     public int playerID;
-
-
-// }

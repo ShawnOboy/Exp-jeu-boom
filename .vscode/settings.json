@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "ProjetVR_De_Base.sln"
+    "dotnet.defaultSolution": "Exp-jeu-boom.sln"
 }

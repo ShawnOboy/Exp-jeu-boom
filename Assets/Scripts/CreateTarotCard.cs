@@ -7,8 +7,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CreateTaroCard", menuName = "Taro Card", order = 0)]
-public class CreateTaroCard : ScriptableObject {
+[CreateAssetMenu(fileName = "CreateTarotCard", menuName = "Tarot Card", order = 0)]
+public class CreateTarotCard : ScriptableObject {
   [SerializeField] string cardName;
 
   public string CardName {
@@ -18,27 +18,27 @@ public class CreateTaroCard : ScriptableObject {
 
 // Création d'un bouton dans l'éditeur pour mettre le nom de la carte sur "cardName"
 #if UNITY_EDITOR
-  [CustomEditor(typeof(CreateTaroCard))]
-  public class CreateTaroCardEditor : Editor {
+  [CustomEditor(typeof(CreateTarotCard))]
+  public class CreateTarotCardEditor : Editor {
     public override void OnInspectorGUI() {
       base.OnInspectorGUI();
 
-      CreateTaroCard refScript = (CreateTaroCard)target; // Prend référence au Script "CreateTaroCard" via l'élément de l'inspecteur visé (target)
+      CreateTarotCard refScript = (CreateTarotCard)target; // Prend référence au Script "CreateTarotCard" via l'élément de l'inspecteur visé (target)
 
       if(GUILayout.Button("Set Card Name")) { // Cré un bouton qui appel le code qu'il contient
         SetCardName(refScript);
       }
     }
 
-    private void SetCardName(CreateTaroCard refScript) {
+    private void SetCardName(CreateTarotCard refScript) {
       refScript.CardName = refScript.name;
-      EditorUtility.SetDirty(refScript); // Dit à l'asset (ScriptableObject -> CreateTaroCard) d'être sauvegardé
+      EditorUtility.SetDirty(refScript); // Dit à l'asset (ScriptableObject -> CreateTarotCard) d'être sauvegardé
     }
   }
 #endif
 // Fin du bouton
 
-  public Material cardArtwork;
+  public Sprite cardArtwork;
   public EffectTypeEnum effectType;
 
   [Min(0)]
@@ -50,4 +50,6 @@ public class CreateTaroCard : ScriptableObject {
   }
 
   public bool pickedUpByPlayer = false;
+
+  [HideInInspector] public CardEffectManager cardEffectManager;
 }

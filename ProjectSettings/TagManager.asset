@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Effect Manager
+  - Active Card
+  - Card Spawn
   layers:
   - Default
   - TransparentFX

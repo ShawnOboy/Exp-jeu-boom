@@ -64,7 +64,7 @@ public class RandomCard : MonoBehaviour {
     else if(randomCard.CardName == "World") randomCard.cardEffectManager.World();
     else if(randomCard.CardName == "Star") randomCard.cardEffectManager.Star();
     else if(randomCard.CardName == "HighPriestess") randomCard.cardEffectManager.HighPriestess();
-    else if(randomCard.CardName == "HangedMan") randomCard.cardEffectManager.HangedMan();
+    else if(randomCard.CardName == "Death") randomCard.cardEffectManager.Death();
     else if(randomCard.CardName == "WheelOfFortune") randomCard.cardEffectManager.WheelOfFortune();
     
     yield return new WaitForSeconds(3);

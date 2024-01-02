@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e9ef0d1fa23c9448b1d92b662c6f852, type: 3}
-  m_Name: The Moon
+  m_Name: Sun
   m_EditorClassIdentifier: 
-  cardName: The Moon
-  cardArtwork: {fileID: 2100000, guid: 1afce44d218032b459fbae5f2d3ef596, type: 2}
+  cardName: Sun
+  cardArtwork: {fileID: 21300000, guid: 78a71cd9f62668c448a5a1100fe75887, type: 3}
   effectType: 0
   cardPointValue: 0
+  pickedUpByPlayer: 0
+  cardEffectManager: {fileID: 0}

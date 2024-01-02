@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e523c896238589445ae28370258d26c6, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.15176323, g: 0.21090895, b: 0.2789551, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -575,6 +575,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 6260042595988856616, guid: 9ac9c38e5728aca4eb5be2d577b12c6b, type: 3}
+  dirLight: {fileID: 705507994}
+  skyBoxMaterial:
+  - {fileID: 2100000, guid: 82b660520bdecce4daf45d270ec93fe4, type: 2}
+  - {fileID: 2100000, guid: 493bfb50af5d9424da505ba945c86600, type: 2}
+  - {fileID: 2100000, guid: e523c896238589445ae28370258d26c6, type: 2}
+  - {fileID: 2100000, guid: 3e56423e1fe71f94ea97f5bb2004a7e6, type: 2}
+  - {fileID: 2100000, guid: 1cf32c17fea93ef4fb120e8e0cdfbef1, type: 2}
+  skyBoxIndex: 2
 --- !u!4 &184807242
 Transform:
   m_ObjectHideFlags: 0

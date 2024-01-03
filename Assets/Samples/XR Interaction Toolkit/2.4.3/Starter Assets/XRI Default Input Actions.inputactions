@@ -743,7 +743,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Menu",
+                    "name": "MenuButton",
                     "type": "Button",
                     "id": "9884b597-43e7-4bf7-958e-e35e359b4778",
                     "expectedControlType": "Button",
@@ -903,7 +903,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Menu",
+                    "action": "MenuButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

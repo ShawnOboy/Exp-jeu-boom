@@ -2,29 +2,66 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 public class gameMenuManager : MonoBehaviour
 {
+    // Variable statique pour stocker le score
+    public static int score = 0;
+
     public Transform head;
     public float spawnDistance = 2;
     public GameObject menu;
     public InputActionProperty showButton;
-    // Start is called before the first frame update
+
+    public Button quitButton;
+    public Button endButton;
+
+    // Référence au texte sur le Canvas pour afficher le score
+    public TMP_Text texteScore;
+
+    // Fonction pour augmenter le score
+    public void AugmenterScore(int points)
+    {
+        score += points;
+        // Mettre à jour le texte du score sur le Canvas
+        if (texteScore != null)
+        {
+            texteScore.text = "Score : " + score.ToString();
+        }
+    }
     void Start()
     {
-        
+        //Hook events
+        endButton.onClick.AddListener(End);
+        quitButton.onClick.AddListener(QuitGame);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (showButton.action.WasPerformedThisFrame())
         {
+            Debug.Log("bouton appuyé");
             menu.SetActive(!menu.activeSelf);
             
-            menu.transform.position = head.position + new Vector3(head.forward.x, 0, head.forward.z) * spawnDistance;
+            menu.transform.position = head.position + new Vector3(head.forward.x, 0, head.forward.z).normalized * spawnDistance;
         }
         menu.transform.LookAt(new Vector3(head.position.x, menu.transform.position.y, head.position.z));
         menu.transform.forward *= -1;
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+    
+    //Pour finir le jeu et garder ton score
+    public void End()
+    {
+        // Récupérer l'index de la scène actuelle
+        int indexSceneActuelle = SceneManager.GetActiveScene().buildIndex;
+
+        // Charger la scène suivante
+        SceneManager.LoadScene(indexSceneActuelle + 1);
     }
 }

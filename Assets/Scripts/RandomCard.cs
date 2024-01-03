@@ -17,7 +17,6 @@ public class RandomCard : MonoBehaviour {
   void Start() {
     LoadTarotCards();
     
-    // GetRandomCard();
     randomCard = GetRandomCard();
 
     gameObject.tag = "Active Card";
@@ -73,7 +72,7 @@ public class RandomCard : MonoBehaviour {
     randomCard.cardEffectManager = GameObject.FindGameObjectWithTag("Effect Manager").GetComponent<CardEffectManager>();
     GameObject spawnLocation = GameObject.FindGameObjectWithTag("Card Spawn");
 
-    Instantiate(randomCard.cardEffectManager.cardPrefab, spawnLocation.transform.position, spawnLocation.transform.rotation);
+    GameObject newCard = Instantiate(randomCard.cardEffectManager.cardPrefab, spawnLocation.transform.position, spawnLocation.transform.rotation);
     Destroy(cardParent.gameObject);
 
   }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-1787704131417358065
+--- !u!114 &-1886082587258636869
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_CubeShader
-  m_Shader: {fileID: -6465566751694194690, guid: 5e935c7d2fadd534aa0a9a828d82a361, type: 3}
+  m_Name: Shader Graphs_CubeShader(AVECTEXTURE)
+  m_Shader: {fileID: -6465566751694194690, guid: 36d8b28cf072acf4785ea97864a47523, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -32,28 +32,23 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _Noise_Strenght
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Cubemap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: 3eaaf082715784f4abd1a7d21ed642fd, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6387004a9a9e30c49b5cde72da32c4df, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Cutoff_Height: 1.84
-    - _Edge_Width: 0.11
-    - _Gloom: 2.08
-    - _Noise_Scale: 50.26
+    - _Cutoff_Height: 2
+    - _Gloom: 0
+    - _Noise_Scale: 50
     - _Noise_Strenght: 5.1
     m_Colors:
-    - _Color1: {r: 0.49056602, g: 0.15453202, b: 0.057849757, a: 0}
-    - _Edge_Color: {r: 1.1258999e+15, g: 0, b: 0, a: 0}
+    - _Color1: {r: 0.24528292, g: 0.22792807, b: 0.22792807, a: 0}
+    - _Edge_Color: {r: 1024, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -40,8 +40,8 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Cutoff_Height: 1.5
-    - _Edge_Width: 0.17
+    - _Cutoff_Height: 0.98
+    - _Edge_Width: 0.11
     - _Noise_Scale: 50
     - _Noise_Strenght: 1
     m_Colors:

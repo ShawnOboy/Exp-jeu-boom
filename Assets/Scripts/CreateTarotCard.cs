@@ -39,15 +39,9 @@ public class CreateTarotCard : ScriptableObject {
 // Fin du bouton
 
   public Sprite cardArtwork;
-  public EffectTypeEnum effectType;
 
   [Min(0)]
   public int cardPointValue;
-
-  public enum EffectTypeEnum {
-    buff,
-    debuff
-  }
 
   public bool pickedUpByPlayer = false;
 

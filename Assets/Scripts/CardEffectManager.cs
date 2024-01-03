@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class CardEffectManager : MonoBehaviour {
 
+  GameObject activeCard;
+
+  [Header ("Player Ref")]
+  public GameObject player;
+
   [Header ("Card Prefab")]
   public GameObject cardPrefab;
 
@@ -12,6 +17,14 @@ public class CardEffectManager : MonoBehaviour {
   public Material [] skyBoxMaterial;
   [SerializeField] int skyBoxIndex = 2;
 
+  [Header ("World")]
+  public GameObject icebergMap;
+  public GameObject [] bigIceberg;
+
+  [Header ("Fool")]
+  public Sprite [] fakeArtwork;
+
+
   private void Start() {
     SetDefaultEffect();
   }
@@ -19,9 +32,9 @@ public class CardEffectManager : MonoBehaviour {
   private void Update() {
 
     // Recherche continue de la carte active dans la hiérarchie
-    GameObject activeCard = GameObject.FindGameObjectWithTag("Active Card");
+    activeCard = GameObject.FindGameObjectWithTag("Active Card");
 
-    if(Input.GetKeyDown(KeyCode.Space)) {
+    if(Input.GetKeyDown(KeyCode.Space)) { // Temporaire
       activeCard.GetComponent<RandomCard>().randomCard.pickedUpByPlayer = true;
     }
 
@@ -50,6 +63,12 @@ public class CardEffectManager : MonoBehaviour {
       }
     }
 
+    // Gestion Effets World
+
+    if(icebergMap.transform.position.y < -1.25f) {
+      // Fonction Mort du joueur
+    }
+
   }
 
   public void Moon() {
@@ -61,11 +80,53 @@ public class CardEffectManager : MonoBehaviour {
   }
 
   public void Fool() {
-    Debug.Log("Effet Fool Activé");
+    StartCoroutine(CardIsFake());
+  }
+
+  IEnumerator CardIsFake() {
+    int randomIndex = (int)Mathf.Floor(Random.Range(0, 7));
+    activeCard.GetComponent<SpriteRenderer>().sprite = fakeArtwork[randomIndex];
+
+    yield return new WaitForSeconds(1f);
+
+    activeCard.GetComponent<SpriteRenderer>().sprite = activeCard.GetComponent<RandomCard>().randomCard.cardArtwork;
   }
 
   public void World() {
-    Debug.Log("Effet World Activé");
+    StartCoroutine(SinkIceberg());
+    StartCoroutine(ShrinkIceberg());
+  }
+
+  IEnumerator SinkIceberg() {
+    float randomSinkingAmount = Random.Range(0.25f, 0.5f);
+    float tempSinkingAmount = 0f;
+
+    while (randomSinkingAmount > tempSinkingAmount) {
+      tempSinkingAmount += 0.001f;
+      icebergMap.transform.position = new Vector3(
+        icebergMap.transform.position.x,
+        icebergMap.transform.position.y - 0.001f,
+        icebergMap.transform.position.z
+      );
+      yield return new WaitForSeconds(0.001f);
+    }
+  }
+
+  IEnumerator ShrinkIceberg() {
+    float randomShrinkingAmount = Random.Range(0.1f, 0.3f);
+    float tempShrinkingAmount = 0f;
+
+    while (randomShrinkingAmount > tempShrinkingAmount) {
+      tempShrinkingAmount += 0.001f;
+      foreach (GameObject iceberg in bigIceberg) {
+        iceberg.transform.localScale = new Vector3(
+          iceberg.transform.localScale.x - 0.001f,
+          iceberg.transform.localScale.y - 0.001f,
+          iceberg.transform.localScale.z - 0.001f
+        );
+      }
+      yield return new WaitForSeconds(0.001f);
+    }
   }
 
   public void Star() {
@@ -73,11 +134,17 @@ public class CardEffectManager : MonoBehaviour {
   }
 
   public void HighPriestess() {
-    Debug.Log("Effet High Priestess Activé");
+    SetDefaultEffect();
+
+    player.transform.position = new Vector3(
+      player.transform.position.x,
+      player.transform.position.y + 2f,
+      player.transform.position.z
+    );
   }
 
   public void Death() {
-    Debug.Log("Effet Death Activé");
+    // Fonction Mort du joueur
   }
 
   public void WheelOfFortune() {
@@ -85,7 +152,7 @@ public class CardEffectManager : MonoBehaviour {
   }
 
   // Fonction de reset des valeur
-  void SetDefaultEffect() {
+  public void SetDefaultEffect() {
     // Gestion Effets Moon / Sun
 
     dirLight.intensity = 1;
@@ -97,6 +164,13 @@ public class CardEffectManager : MonoBehaviour {
       if(skyMaterial.GetFloat("_Exposure") != 1f) {
         skyMaterial.SetFloat("_Exposure", 1f);
       }
+    }
+
+    // Gestion Effets World
+
+    icebergMap.transform.position = Vector3.zero ;
+    foreach (GameObject iceberg in bigIceberg) {
+      iceberg.transform.localScale = Vector3.one;
     }
   }
 }

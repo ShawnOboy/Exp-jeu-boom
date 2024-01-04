@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore;
+using UnityEngine.XR.Interaction.Toolkit;
+
 
 
 #if UNITY_EDITOR
@@ -22,8 +24,15 @@ public class RandomCard : MonoBehaviour {
     gameObject.tag = "Active Card";
     randomCard.cardEffectManager = GameObject.FindGameObjectWithTag("Effect Manager").GetComponent<CardEffectManager>();
 
-    SpriteRenderer sRenderer = GetComponent<SpriteRenderer>();
-    sRenderer.sprite = randomCard.cardArtwork;
+    MeshRenderer mRenderer = GetComponent<MeshRenderer>();
+    mRenderer.material = randomCard.cardArtwork;
+
+    Transform cardParent = transform.parent.transform.parent;
+    XRGrabInteractable grabInteractable = cardParent.GetComponent<XRGrabInteractable>();
+    grabInteractable.selectEntered.AddListener(CardGrab);
+  }
+  void CardGrab(SelectEnterEventArgs interactor) {
+    randomCard.pickedUpByPlayer = true;
   }
 
   void Update() {

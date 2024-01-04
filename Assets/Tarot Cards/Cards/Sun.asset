@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Sun
   m_EditorClassIdentifier: 
   cardName: Sun
-  cardArtwork: {fileID: 21300000, guid: 3eaaf082715784f4abd1a7d21ed642fd, type: 3}
-  effectType: 0
+  cardArtwork: {fileID: 2100000, guid: aadf36aa81008f94988f0af4f70f737b, type: 2}
   cardPointValue: 0
   pickedUpByPlayer: 0
   cardEffectManager: {fileID: 0}

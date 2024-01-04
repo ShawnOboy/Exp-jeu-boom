@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HighPriestess
   m_EditorClassIdentifier: 
   cardName: HighPriestess
-  cardArtwork: {fileID: 21300000, guid: 2b08b0524d168ea4ea885ef59fcd2cf5, type: 3}
+  cardArtwork: {fileID: 2100000, guid: cf670d78e86c8a84aaada1936184cdd6, type: 2}
   cardPointValue: 0
   pickedUpByPlayer: 0
   cardEffectManager: {fileID: 0}

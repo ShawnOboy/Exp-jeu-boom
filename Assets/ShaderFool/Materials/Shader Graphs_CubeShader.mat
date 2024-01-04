@@ -48,12 +48,12 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Cutoff_Height: 1.84
+    - _Cutoff_Height: 0.9
     - _Edge_Width: 0.11
-    - _Gloom: 2.08
-    - _Noise_Scale: 50.26
-    - _Noise_Strenght: 5.1
+    - _Gloom: 1.25
+    - _Noise_Scale: 5
+    - _Noise_Strenght: 1
     m_Colors:
-    - _Color1: {r: 0.49056602, g: 0.15453202, b: 0.057849757, a: 0}
-    - _Edge_Color: {r: 1.1258999e+15, g: 0, b: 0, a: 0}
+    - _Color1: {r: 0.90588236, g: 0.5010843, b: 0.28627458, a: 0}
+    - _Edge_Color: {r: 0.79910296, g: 0.21586053, b: 0.06662595, a: 0}
   m_BuildTextureStacks: []

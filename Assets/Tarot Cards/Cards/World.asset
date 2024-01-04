@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: World
   m_EditorClassIdentifier: 
   cardName: World
-  cardArtwork: {fileID: 21300000, guid: 484b1ac69028bc549b7c73380fbc5492, type: 3}
-  effectType: 0
+  cardArtwork: {fileID: 2100000, guid: fd47c86b46f40ce4a9d3c0f8b81de571, type: 2}
   cardPointValue: 0
   pickedUpByPlayer: 0
   cardEffectManager: {fileID: 0}

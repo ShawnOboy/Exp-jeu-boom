@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Star
   m_EditorClassIdentifier: 
   cardName: Star
-  cardArtwork: {fileID: 21300000, guid: 944f7f479743f0d4bb238ca095d5bd1d, type: 3}
-  effectType: 0
+  cardArtwork: {fileID: 2100000, guid: bc689a4097ad22d4588a752a546223b9, type: 2}
   cardPointValue: 0
   pickedUpByPlayer: 0
   cardEffectManager: {fileID: 0}

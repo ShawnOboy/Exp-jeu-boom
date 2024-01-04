@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardEffectManager : MonoBehaviour {
 
@@ -16,27 +19,29 @@ public class CardEffectManager : MonoBehaviour {
   public Light dirLight;
   public Material [] skyBoxMaterial;
   [SerializeField] int skyBoxIndex = 2;
+  public GameObject flash;
 
   [Header ("World")]
   public GameObject icebergMap;
   public GameObject [] bigIceberg;
 
   [Header ("Fool")]
-  public Sprite [] fakeArtwork;
+  public Material [] fakeArtwork;
+  public Material shaderFool;
+  private Material foolShader;
+  
+  private bool foolEffect;
 
 
   private void Start() {
     SetDefaultEffect();
+    foolShader = new(shaderFool);
   }
 
   private void Update() {
 
     // Recherche continue de la carte active dans la hiérarchie
     activeCard = GameObject.FindGameObjectWithTag("Active Card");
-
-    if(Input.GetKeyDown(KeyCode.Space)) { // Temporaire
-      activeCard.GetComponent<RandomCard>().randomCard.pickedUpByPlayer = true;
-    }
 
     // Gestion Effets Moon / Sun
 
@@ -69,14 +74,52 @@ public class CardEffectManager : MonoBehaviour {
       // Fonction Mort du joueur
     }
 
+    // Gestion Fool
+
+    if(foolEffect) {
+      if(foolShader.GetFloat("_Cutoff_Height") < 2) {
+        foolShader.SetFloat("_Cutoff_Height", foolShader.GetFloat("_Cutoff_Height") + 0.015f);
+      }
+    }
+    else {
+      if(foolShader.GetFloat("_Cutoff_Height") > 0.4f) {
+        foolShader.SetFloat("_Cutoff_Height", foolShader.GetFloat("_Cutoff_Height") - 0.01f);
+      }
+    }
+
+    if(Input.GetKeyDown(KeyCode.V)) {
+      Moon();
+    }
+    if(Input.GetKeyDown(KeyCode.B)) {
+      Sun();
+    }
+
   }
 
   public void Moon() {
     skyBoxIndex -= 1;
+    Material moonMat = new(flash.GetComponent<MeshRenderer>().material) {
+      color = new Color(0f, 0f, 0f, 0f)
+    };
+    ActivateFlash(moonMat);
   }
 
   public void Sun() {
     skyBoxIndex += 1;
+    Material sunMat = new(flash.GetComponent<MeshRenderer>().material) {
+      color = new Color(1f, 1f, 1f, 1f)
+    };
+    ActivateFlash(sunMat);
+  }
+
+  private void ActivateFlash(Material color) {
+    flash.GetComponent<MeshRenderer>().material = color;
+    flash.GetComponent<Animator>().enabled = true;
+    Invoke(nameof(DisableFlash), 1f);
+  }
+
+  private void DisableFlash() {
+    flash.GetComponent<Animator>().enabled = false;
   }
 
   public void Fool() {
@@ -85,11 +128,28 @@ public class CardEffectManager : MonoBehaviour {
 
   IEnumerator CardIsFake() {
     int randomIndex = (int)Mathf.Floor(Random.Range(0, 7));
-    activeCard.GetComponent<SpriteRenderer>().sprite = fakeArtwork[randomIndex];
+
+    List<Material> materialsList = new() {
+      fakeArtwork[randomIndex],
+      foolShader
+    };
+
+    activeCard.GetComponent<MeshRenderer>().SetMaterials(materialsList);
 
     yield return new WaitForSeconds(1f);
 
-    activeCard.GetComponent<SpriteRenderer>().sprite = activeCard.GetComponent<RandomCard>().randomCard.cardArtwork;
+    foolEffect = true;
+    foolShader.SetFloat("_Cutoff_Height", 0.9f);
+    foolShader.SetFloat("_Noise_Scale", 5f);
+    foolShader.SetFloat("_Gloom", 1.25f);
+
+    yield return new WaitForSeconds(0.75f);
+
+    foolEffect = false;
+    foolShader.SetFloat("_Noise_Scale", 25f);
+
+    materialsList[0] = activeCard.GetComponent<RandomCard>().randomCard.cardArtwork;
+    activeCard.GetComponent<MeshRenderer>().SetMaterials(materialsList);
   }
 
   public void World() {
@@ -138,7 +198,7 @@ public class CardEffectManager : MonoBehaviour {
 
     player.transform.position = new Vector3(
       player.transform.position.x,
-      player.transform.position.y + 2f,
+      player.transform.position.y + 0.5f,
       player.transform.position.z
     );
   }

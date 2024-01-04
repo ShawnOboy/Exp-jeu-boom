@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Fool
   m_EditorClassIdentifier: 
   cardName: Fool
-  cardArtwork: {fileID: 21300000, guid: aa07bb7c7493f9d49a4f9f4fccc6e7f8, type: 3}
-  effectType: 0
+  cardArtwork: {fileID: 2100000, guid: 671ef2a41049fbb409cc33d597dcb778, type: 2}
   cardPointValue: 1
   pickedUpByPlayer: 0
   cardEffectManager: {fileID: 0}

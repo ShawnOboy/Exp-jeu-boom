@@ -38,7 +38,7 @@ public class CreateTarotCard : ScriptableObject {
 #endif
 // Fin du bouton
 
-  public Sprite cardArtwork;
+  public Material cardArtwork;
 
   [Min(0)]
   public int cardPointValue;

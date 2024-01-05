@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.XR;
+
 public class gameMenuManager : MonoBehaviour
 {
     // Variable statique pour stocker le score
@@ -16,7 +18,6 @@ public class gameMenuManager : MonoBehaviour
     public InputActionProperty showButton;
 
     public Button quitButton;
-    public Button endButton;
 
     // Référence au texte sur le Canvas pour afficher le score
     public TMP_Text texteScore;
@@ -37,7 +38,6 @@ public class gameMenuManager : MonoBehaviour
     void Start()
     {
         //Hook events
-        endButton.onClick.AddListener(End);
         quitButton.onClick.AddListener(QuitGame);
     }
 
@@ -60,16 +60,19 @@ public class gameMenuManager : MonoBehaviour
     }
     public void QuitGame()
     {
-        Application.Quit();
-    }
-    
-    //Pour finir le jeu et garder ton score
-    public void End()
-    {
-        // Récupérer l'index de la scène actuelle
-        int indexSceneActuelle = SceneManager.GetActiveScene().buildIndex;
+        // Vérifier si l'application est en mode VR
+        if (XRSettings.enabled)
+        {
+            // Désactiver le mode VR avant de quitter
+            XRSettings.enabled = false;
+        }
 
-        // Charger la scène suivante
-        SceneManager.LoadScene(indexSceneActuelle + 1);
-    }
+        // Quitter l'application
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
+    
+}
 }

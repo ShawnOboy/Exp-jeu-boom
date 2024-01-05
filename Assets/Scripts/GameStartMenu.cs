@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.XR;
+
 public class GameStartMenu : MonoBehaviour
 {
     [Header("Main Menu Buttons")]
@@ -18,7 +20,19 @@ public class GameStartMenu : MonoBehaviour
     }
     public void QuitGame()
     {
-        Application.Quit();
+        // Vérifier si l'application est en mode VR
+        if (XRSettings.enabled)
+        {
+            // Désactiver le mode VR avant de quitter
+            XRSettings.enabled = false;
+        }
+
+        // Quitter l'application
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
     }
 
     public void StartGame()
@@ -27,6 +41,6 @@ public class GameStartMenu : MonoBehaviour
         int indexSceneActuelle = SceneManager.GetActiveScene().buildIndex;
 
         // Charger la scène suivante
-        SceneManager.LoadScene(indexSceneActuelle + 1);
+        SceneManager.LoadScene(1);
     }
 }

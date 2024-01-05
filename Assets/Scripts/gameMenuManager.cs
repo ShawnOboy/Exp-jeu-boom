@@ -21,6 +21,9 @@ public class gameMenuManager : MonoBehaviour
     // Référence au texte sur le Canvas pour afficher le score
     public TMP_Text texteScore;
 
+    public GameObject manetteGRay;
+    public GameObject manetteDRay;
+
     // Fonction pour augmenter le score
     public void AugmenterScore(int points)
     {
@@ -42,10 +45,15 @@ public class gameMenuManager : MonoBehaviour
     {
         if (showButton.action.WasPerformedThisFrame())
         {
+
             Debug.Log("bouton appuyé");
             menu.SetActive(!menu.activeSelf);
             
             menu.transform.position = head.position + new Vector3(head.forward.x, 0, head.forward.z).normalized * spawnDistance;
+
+            //Ray actif pour utiliser le menu
+            manetteGRay.SetActive(!manetteGRay.activeSelf);
+            manetteDRay.SetActive(!manetteDRay.activeSelf);
         }
         menu.transform.LookAt(new Vector3(head.position.x, menu.transform.position.y, head.position.z));
         menu.transform.forward *= -1;

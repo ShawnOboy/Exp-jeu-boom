@@ -18,7 +18,7 @@ public class gameMenuManager : MonoBehaviour
     public Button quitButton;
     public Button endButton;
 
-    // Référence au texte sur le Canvas pour afficher le score
+    // Rï¿½fï¿½rence au texte sur le Canvas pour afficher le score
     public TMP_Text texteScore;
 
     public GameObject manetteGRay;
@@ -28,7 +28,7 @@ public class gameMenuManager : MonoBehaviour
     public void AugmenterScore(int points)
     {
         score += points;
-        // Mettre à jour le texte du score sur le Canvas
+        // Mettre ï¿½ jour le texte du score sur le Canvas
         if (texteScore != null)
         {
             texteScore.text = "Score : " + score.ToString();
@@ -46,7 +46,7 @@ public class gameMenuManager : MonoBehaviour
         if (showButton.action.WasPerformedThisFrame())
         {
 
-            Debug.Log("bouton appuyé");
+            Debug.Log("bouton appuyï¿½");
             menu.SetActive(!menu.activeSelf);
             
             menu.transform.position = head.position + new Vector3(head.forward.x, 0, head.forward.z).normalized * spawnDistance;
@@ -66,10 +66,10 @@ public class gameMenuManager : MonoBehaviour
     //Pour finir le jeu et garder ton score
     public void End()
     {
-        // Récupérer l'index de la scène actuelle
+        // Rï¿½cupï¿½rer l'index de la scï¿½ne actuelle
         int indexSceneActuelle = SceneManager.GetActiveScene().buildIndex;
 
-        // Charger la scène suivante
+        // Charger la scï¿½ne suivante
         SceneManager.LoadScene(indexSceneActuelle + 1);
     }
 }

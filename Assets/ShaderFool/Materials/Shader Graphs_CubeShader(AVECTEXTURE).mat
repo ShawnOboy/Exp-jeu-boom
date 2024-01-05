@@ -44,7 +44,7 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Cutoff_Height: 2
+    - _Cutoff_Height: 2.94
     - _Gloom: 0
     - _Noise_Scale: 50
     - _Noise_Strenght: 5.1

@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.XR;
+
 public class gameMenuManager : MonoBehaviour
 {
     // Variable statique pour stocker le score
@@ -16,9 +18,8 @@ public class gameMenuManager : MonoBehaviour
     public InputActionProperty showButton;
 
     public Button quitButton;
-    public Button endButton;
 
-    // R�f�rence au texte sur le Canvas pour afficher le score
+    // Rï¿½fï¿½rence au texte sur le Canvas pour afficher le score
     public TMP_Text texteScore;
 
     public GameObject manetteGRay;
@@ -28,7 +29,7 @@ public class gameMenuManager : MonoBehaviour
     public void AugmenterScore(int points)
     {
         score += points;
-        // Mettre � jour le texte du score sur le Canvas
+        // Mettre ï¿½ jour le texte du score sur le Canvas
         if (texteScore != null)
         {
             texteScore.text = "Score : " + score.ToString();
@@ -37,7 +38,6 @@ public class gameMenuManager : MonoBehaviour
     void Start()
     {
         //Hook events
-        endButton.onClick.AddListener(End);
         quitButton.onClick.AddListener(QuitGame);
     }
 
@@ -46,7 +46,7 @@ public class gameMenuManager : MonoBehaviour
         if (showButton.action.WasPerformedThisFrame())
         {
 
-            Debug.Log("bouton appuy�");
+            Debug.Log("bouton appuyï¿½");
             menu.SetActive(!menu.activeSelf);
             
             menu.transform.position = head.position + new Vector3(head.forward.x, 0, head.forward.z).normalized * spawnDistance;
@@ -60,16 +60,19 @@ public class gameMenuManager : MonoBehaviour
     }
     public void QuitGame()
     {
-        Application.Quit();
-    }
-    
-    //Pour finir le jeu et garder ton score
-    public void End()
-    {
-        // R�cup�rer l'index de la sc�ne actuelle
-        int indexSceneActuelle = SceneManager.GetActiveScene().buildIndex;
+        // Vérifier si l'application est en mode VR
+        if (XRSettings.enabled)
+        {
+            // Désactiver le mode VR avant de quitter
+            XRSettings.enabled = false;
+        }
 
-        // Charger la sc�ne suivante
-        SceneManager.LoadScene(indexSceneActuelle + 1);
-    }
+        // Quitter l'application
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
+    
+}
 }

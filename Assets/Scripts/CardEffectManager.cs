@@ -4,10 +4,20 @@ using Unity.XR.CoreUtils;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CardEffectManager : MonoBehaviour {
+  public static bool isDead = false;
 
   GameObject activeCard;
+  public Material shaderDissolve;
+  private Material shaderDissolveVisual;
+  private Material shaderDissolveFront;
+  private Material shaderDissolveBack;
+  public Material transparent;
+  public Texture2D [] textureDissolve;
+  private bool dissolving = false;
+  public AudioClip burningCard;
 
   [Header ("Player Ref")]
   public GameObject player;
@@ -20,6 +30,7 @@ public class CardEffectManager : MonoBehaviour {
   public Material [] skyBoxMaterial;
   [SerializeField] int skyBoxIndex = 2;
   public GameObject flash;
+  public AudioClip fastWhoosh;
 
   [Header ("World")]
   public GameObject icebergMap;
@@ -29,13 +40,21 @@ public class CardEffectManager : MonoBehaviour {
   public Material [] fakeArtwork;
   public Material shaderFool;
   private Material foolShader;
-  
   private bool foolEffect;
+
+  [Header ("Star")]
+  public GameObject fireworks;
+  public AudioClip fireworkWhistle;
+  public AudioClip fireworkBurst;
 
 
   private void Start() {
     SetDefaultEffect();
     foolShader = new(shaderFool);
+    shaderDissolveVisual = new(shaderDissolve);
+    shaderDissolveFront = new(shaderDissolve);
+    shaderDissolveBack = new(shaderDissolve);
+    fireworks.GetComponent<ParticleSystem>().Pause();
   }
 
   private void Update() {
@@ -53,7 +72,7 @@ public class CardEffectManager : MonoBehaviour {
         skyMaterial.SetFloat("_Exposure", skyMaterial.GetFloat("_Exposure") - 0.0025f);
       }
       else {
-        // Fonction Mort du joueur
+        StartCoroutine(nameof(PlayerDeath));
       }
     }
     else if(skyBoxIndex == 4) {
@@ -64,14 +83,14 @@ public class CardEffectManager : MonoBehaviour {
         skyMaterial.SetFloat("_Exposure", skyMaterial.GetFloat("_Exposure") + 0.0025f);
       }
       else {
-        // Fonction Mort du joueur
+        StartCoroutine(nameof(PlayerDeath));
       }
     }
 
     // Gestion Effets World
 
     if(icebergMap.transform.position.y < -1.25f) {
-      // Fonction Mort du joueur
+      StartCoroutine(nameof(PlayerDeath));
     }
 
     // Gestion Fool
@@ -87,19 +106,29 @@ public class CardEffectManager : MonoBehaviour {
       }
     }
 
-    if(Input.GetKeyDown(KeyCode.V)) {
-      Moon();
-    }
-    if(Input.GetKeyDown(KeyCode.B)) {
-      Sun();
+    // Gestion Dissolve
+
+    if(dissolving) {
+      if(shaderDissolveVisual.GetFloat("_Cutoff_Height") > -2) {
+        shaderDissolveVisual.SetFloat("_Cutoff_Height", shaderDissolveVisual.GetFloat("_Cutoff_Height") - 0.1f);
+      }
+      if(shaderDissolveFront.GetFloat("_Cutoff_Height") > -2) {
+        shaderDissolveFront.SetFloat("_Cutoff_Height", shaderDissolveFront.GetFloat("_Cutoff_Height") - 0.1f);
+      }
+      if(shaderDissolveBack.GetFloat("_Cutoff_Height") > -2) {
+        shaderDissolveBack.SetFloat("_Cutoff_Height", shaderDissolveBack.GetFloat("_Cutoff_Height") - 0.1f);
+      }
     }
 
+    if(isDead) {
+      
+    }
   }
 
   public void Moon() {
     skyBoxIndex -= 1;
     Material moonMat = new(flash.GetComponent<MeshRenderer>().material) {
-      color = new Color(0f, 0f, 0f, 0f)
+      color = new Color(0f, 0f, 0f, 1f)
     };
     ActivateFlash(moonMat);
   }
@@ -115,6 +144,8 @@ public class CardEffectManager : MonoBehaviour {
   private void ActivateFlash(Material color) {
     flash.GetComponent<MeshRenderer>().material = color;
     flash.GetComponent<Animator>().enabled = true;
+    GameObject cardParent = activeCard.transform.parent.transform.parent.gameObject;
+    cardParent.GetComponent<AudioSource>().PlayOneShot(fastWhoosh);
     Invoke(nameof(DisableFlash), 1f);
   }
 
@@ -136,7 +167,12 @@ public class CardEffectManager : MonoBehaviour {
 
     activeCard.GetComponent<MeshRenderer>().SetMaterials(materialsList);
 
-    yield return new WaitForSeconds(1f);
+    yield return new WaitForSeconds(1.5f);
+
+    GameObject cardParent = activeCard.transform.parent.transform.parent.gameObject;
+    cardParent.GetComponent<AudioSource>().PlayOneShot(burningCard);
+
+    yield return new WaitForSeconds(0.5f);
 
     foolEffect = true;
     foolShader.SetFloat("_Cutoff_Height", 0.9f);
@@ -190,10 +226,27 @@ public class CardEffectManager : MonoBehaviour {
   }
 
   public void Star() {
-    Debug.Log("Effet Star Activé");
+    fireworks.GetComponent<ParticleSystem>().Play();
+    StartCoroutine(FireworkSound(4));
+  }
+
+  private IEnumerator FireworkSound(int repeatAmount) {
+    for (int i = 0; i < repeatAmount; i++) {
+      yield return new WaitForSeconds(1f);
+      fireworks.GetComponent<AudioSource>().PlayOneShot(fireworkWhistle);
+      Invoke(nameof(FireworkBurst), 2.25f);
+    }
+  }
+
+  private void FireworkBurst() {
+    fireworks.GetComponent<AudioSource>().PlayOneShot(fireworkBurst);
   }
 
   public void HighPriestess() {
+    Material highPriestessMat = new(flash.GetComponent<MeshRenderer>().material) {
+      color = new Color(1f, 1f, 1f, 1f)
+    };
+    ActivateFlash(highPriestessMat);
     SetDefaultEffect();
 
     player.transform.position = new Vector3(
@@ -204,15 +257,26 @@ public class CardEffectManager : MonoBehaviour {
   }
 
   public void Death() {
-    // Fonction Mort du joueur
+    StartCoroutine(nameof(PlayerDeath));
   }
 
   public void WheelOfFortune() {
     Debug.Log("Effet Wheel of Fortune Activé");
   }
 
+  private IEnumerator PlayerDeath() {
+    isDead = true;
+
+    yield return new WaitForSeconds(2f);
+
+    int indexSceneActuelle = SceneManager.GetActiveScene().buildIndex;
+    SceneManager.LoadScene(indexSceneActuelle - 1);
+}
+
   // Fonction de reset des valeur
   public void SetDefaultEffect() {
+    isDead = false;
+
     // Gestion Effets Moon / Sun
 
     dirLight.intensity = 1;
@@ -232,5 +296,57 @@ public class CardEffectManager : MonoBehaviour {
     foreach (GameObject iceberg in bigIceberg) {
       iceberg.transform.localScale = Vector3.one;
     }
+  }
+
+  public IEnumerator DissolveCardEffect(GameObject dissolvedElement, string cardPart) {
+
+    if(cardPart == "cardVisual") {
+      List<Material> materialsList = new() {
+        transparent,
+        shaderDissolveVisual
+      };
+
+      shaderDissolveVisual.SetTexture("_Texture2D", textureDissolve[0]);
+
+      dissolvedElement.GetComponent<MeshRenderer>().SetMaterials(materialsList);
+    }
+
+    else if(cardPart == "cardBack") {
+      List<Material> materialsList = new() {
+        transparent,
+        shaderDissolveBack
+      };
+      
+      shaderDissolveBack.SetTexture("_Texture2D", textureDissolve[1]);
+
+      dissolvedElement.GetComponent<MeshRenderer>().SetMaterials(materialsList);
+    }
+    else {
+      List<Material> materialsList = new() {
+        transparent,
+        shaderDissolveFront
+      };
+      
+      if(cardPart == "Fool") shaderDissolveFront.SetTexture("_Texture2D", textureDissolve[2]);
+      else if(cardPart == "Moon") shaderDissolveFront.SetTexture("_Texture2D", textureDissolve[3]);
+      else if(cardPart == "Sun") shaderDissolveFront.SetTexture("_Texture2D", textureDissolve[4]);
+      else if(cardPart == "World") shaderDissolveFront.SetTexture("_Texture2D", textureDissolve[5]);
+      else if(cardPart == "Star") shaderDissolveFront.SetTexture("_Texture2D", textureDissolve[6]);
+      else if(cardPart == "HighPriestess") shaderDissolveFront.SetTexture("_Texture2D", textureDissolve[7]);
+      else if(cardPart == "Death") shaderDissolveFront.SetTexture("_Texture2D", textureDissolve[8]);
+      else if(cardPart == "WheelOfFortune") shaderDissolveFront.SetTexture("_Texture2D", textureDissolve[9]);
+
+      dissolvedElement.GetComponent<MeshRenderer>().SetMaterials(materialsList);
+    }
+
+    dissolving = true;
+    shaderDissolveVisual.SetFloat("_Cutoff_Height", 5.3f);
+    shaderDissolveFront.SetFloat("_Cutoff_Height", 5.3f);
+    shaderDissolveBack.SetFloat("_Cutoff_Height", 5.3f);
+
+    yield return new WaitForSeconds(1f);
+
+    dissolving = false;
+
   }
 }

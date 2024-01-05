@@ -19,7 +19,7 @@ public class gameMenuManager : MonoBehaviour
 
     public Button quitButton;
 
-    // R�f�rence au texte sur le Canvas pour afficher le score
+    // Rï¿½fï¿½rence au texte sur le Canvas pour afficher le score
     public TMP_Text texteScore;
 
     public GameObject manetteGRay;
@@ -29,7 +29,7 @@ public class gameMenuManager : MonoBehaviour
     public void AugmenterScore(int points)
     {
         score += points;
-        // Mettre � jour le texte du score sur le Canvas
+        // Mettre ï¿½ jour le texte du score sur le Canvas
         if (texteScore != null)
         {
             texteScore.text = "Score : " + score.ToString();
@@ -46,7 +46,7 @@ public class gameMenuManager : MonoBehaviour
         if (showButton.action.WasPerformedThisFrame())
         {
 
-            Debug.Log("bouton appuy�");
+            Debug.Log("bouton appuyï¿½");
             menu.SetActive(!menu.activeSelf);
             
             menu.transform.position = head.position + new Vector3(head.forward.x, 0, head.forward.z).normalized * spawnDistance;
@@ -60,10 +60,10 @@ public class gameMenuManager : MonoBehaviour
     }
     public void QuitGame()
     {
-        // V�rifier si l'application est en mode VR
+        // Vérifier si l'application est en mode VR
         if (XRSettings.enabled)
         {
-            // D�sactiver le mode VR avant de quitter
+            // Désactiver le mode VR avant de quitter
             XRSettings.enabled = false;
         }
 

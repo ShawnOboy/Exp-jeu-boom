@@ -67,22 +67,42 @@ public class RandomCard : MonoBehaviour {
     randomCard.pickedUpByPlayer = false;
 
     if(randomCard.CardName == "Fool") randomCard.cardEffectManager.Fool();
-    else if(randomCard.CardName == "Moon") randomCard.cardEffectManager.Moon();
+
+    yield return new WaitForSeconds(1);
+
+    if(randomCard.CardName == "Moon") randomCard.cardEffectManager.Moon();
     else if(randomCard.CardName == "Sun") randomCard.cardEffectManager.Sun();
     else if(randomCard.CardName == "World") randomCard.cardEffectManager.World();
     else if(randomCard.CardName == "Star") randomCard.cardEffectManager.Star();
     else if(randomCard.CardName == "HighPriestess") randomCard.cardEffectManager.HighPriestess();
     else if(randomCard.CardName == "Death") randomCard.cardEffectManager.Death();
     else if(randomCard.CardName == "WheelOfFortune") randomCard.cardEffectManager.WheelOfFortune();
-    
-    yield return new WaitForSeconds(3);
 
-    Transform cardParent = transform.parent.transform.parent;
+    gameMenuManager.score += randomCard.cardPointValue;
+    
+    yield return new WaitForSeconds(1.5f);
+
+    GameObject cardParent = transform.parent.transform.parent.gameObject;
+    cardParent.GetComponent<AudioSource>().PlayOneShot(randomCard.cardEffectManager.burningCard);
+
+    yield return new WaitForSeconds(0.5f);
+
+    GameObject visualElement = gameObject.transform.parent.gameObject;
+    GameObject frontElement = gameObject;
+    GameObject backElement = gameObject.transform.parent.GetChild(1).gameObject;
+    
+    StartCoroutine(randomCard.cardEffectManager.DissolveCardEffect(visualElement, "cardVisual"));
+    StartCoroutine(randomCard.cardEffectManager.DissolveCardEffect(frontElement, randomCard.CardName));
+    StartCoroutine(randomCard.cardEffectManager.DissolveCardEffect(backElement, "cardBack"));
+
+    yield return new WaitForSeconds(2);
+
     randomCard.cardEffectManager = GameObject.FindGameObjectWithTag("Effect Manager").GetComponent<CardEffectManager>();
     GameObject spawnLocation = GameObject.FindGameObjectWithTag("Card Spawn");
 
     GameObject newCard = Instantiate(randomCard.cardEffectManager.cardPrefab, spawnLocation.transform.position, spawnLocation.transform.rotation);
-    Destroy(cardParent.gameObject);
+
+    Destroy(cardParent);
 
   }
 }

@@ -40,7 +40,7 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _FlowSpeed: 0.2
+    - _FlowSpeed: 0.05
     - _FoamDensity: 50
     - _FoamSpeed: 1
     - _FoamThickness: 5
@@ -48,7 +48,7 @@ Material:
     - _WaveHeight: 0.02
     - _WaveSpread: 5
     m_Colors:
-    - _Color: {r: 0.1514774, g: 0.4442565, b: 0.8679245, a: 0}
+    - _Color: {r: 0.2206746, g: 0.38103685, b: 0.5254902, a: 0}
     - _FlowDirection: {r: 0.1, g: 0.5, b: 0, a: 0}
-    - _FoamColor: {r: 0.5943396, g: 1.332643, b: 2, a: 0}
+    - _FoamColor: {r: 0.23856176, g: 0.5349091, b: 0.80277926, a: 0}
   m_BuildTextureStacks: []

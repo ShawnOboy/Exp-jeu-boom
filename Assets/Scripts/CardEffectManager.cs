@@ -18,6 +18,7 @@ public class CardEffectManager : MonoBehaviour {
   public Texture2D [] textureDissolve;
   private bool dissolving = false;
   public AudioClip burningCard;
+  public AudioClip [] cardFlip;
 
   [Header ("Player Ref")]
   public GameObject player;
@@ -69,7 +70,7 @@ public class CardEffectManager : MonoBehaviour {
 
     if(skyBoxIndex == 0) {
       if(skyMaterial.GetFloat("_Exposure") > 0) {
-        skyMaterial.SetFloat("_Exposure", skyMaterial.GetFloat("_Exposure") - 0.0025f);
+        skyMaterial.SetFloat("_Exposure", skyMaterial.GetFloat("_Exposure") - 0.005f);
       }
       else {
         StartCoroutine(nameof(PlayerDeath));
@@ -77,10 +78,10 @@ public class CardEffectManager : MonoBehaviour {
     }
     else if(skyBoxIndex == 4) {
       if(dirLight.intensity < 20) {
-        dirLight.intensity += 0.025f;
+        dirLight.intensity += 0.1f;
       }
       if(skyMaterial.GetFloat("_Exposure") < 2) {
-        skyMaterial.SetFloat("_Exposure", skyMaterial.GetFloat("_Exposure") + 0.0025f);
+        skyMaterial.SetFloat("_Exposure", skyMaterial.GetFloat("_Exposure") + 0.005f);
       }
       else {
         StartCoroutine(nameof(PlayerDeath));
@@ -251,7 +252,7 @@ public class CardEffectManager : MonoBehaviour {
 
     player.transform.position = new Vector3(
       player.transform.position.x,
-      player.transform.position.y + 0.5f,
+      1f,
       player.transform.position.z
     );
   }
@@ -261,11 +262,19 @@ public class CardEffectManager : MonoBehaviour {
   }
 
   public void WheelOfFortune() {
-    Debug.Log("Effet Wheel of Fortune Activé");
+    int chances = (int)Mathf.Floor(Random.Range(0, 2));
+
+    if(chances == 0) {
+      gameMenuManager.score -= activeCard.GetComponent<RandomCard>().randomCard.cardPointValue;
+    }
+    else if(chances == 1) {
+      gameMenuManager.score += activeCard.GetComponent<RandomCard>().randomCard.cardPointValue;
+    }
   }
 
   private IEnumerator PlayerDeath() {
     isDead = true;
+    gameMenuManager.score = 0;
 
     yield return new WaitForSeconds(2f);
 

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: WheelOfFortune
   cardArtwork: {fileID: 2100000, guid: 9ec0d8486f07a7c46a734bff593350ca, type: 2}
-  cardPointValue: 0
+  cardPointValue: 15
   pickedUpByPlayer: 0
   cardEffectManager: {fileID: 0}

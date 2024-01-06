@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Moon
   cardArtwork: {fileID: 2100000, guid: 5f60cd13be285fc468081ec846786907, type: 2}
-  cardPointValue: 0
+  cardPointValue: 18
   pickedUpByPlayer: 0
   cardEffectManager: {fileID: 0}

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Star
   cardArtwork: {fileID: 2100000, guid: bc689a4097ad22d4588a752a546223b9, type: 2}
-  cardPointValue: 0
+  cardPointValue: 16
   pickedUpByPlayer: 0
   cardEffectManager: {fileID: 0}

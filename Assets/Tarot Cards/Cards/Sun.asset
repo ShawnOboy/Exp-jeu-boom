@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Sun
   cardArtwork: {fileID: 2100000, guid: aadf36aa81008f94988f0af4f70f737b, type: 2}
-  cardPointValue: 0
+  cardPointValue: 19
   pickedUpByPlayer: 0
   cardEffectManager: {fileID: 0}

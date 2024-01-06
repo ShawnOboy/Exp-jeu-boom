@@ -40,13 +40,13 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _FlowSpeed: 0.05
+    - _FlowSpeed: 0.025
     - _FoamDensity: 50
     - _FoamSpeed: 1
     - _FoamThickness: 5
     - _MaxHeight: 0.1
-    - _WaveHeight: 0.02
-    - _WaveSpread: 5
+    - _WaveHeight: 0.01
+    - _WaveSpread: 0.15
     m_Colors:
     - _Color: {r: 0.2206746, g: 0.38103685, b: 0.5254902, a: 0}
     - _FlowDirection: {r: 0.1, g: 0.5, b: 0, a: 0}

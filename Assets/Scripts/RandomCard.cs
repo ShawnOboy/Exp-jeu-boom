@@ -65,6 +65,10 @@ public class RandomCard : MonoBehaviour {
 
     activatedEffect = true;
     randomCard.pickedUpByPlayer = false;
+    GameObject cardParent = transform.parent.transform.parent.gameObject;
+
+    int randomSound = Mathf.FloorToInt(Random.Range(0f, randomCard.cardEffectManager.cardFlip.Length));
+    cardParent.GetComponent<AudioSource>().PlayOneShot(randomCard.cardEffectManager.cardFlip[randomSound], 2f);
 
     if(randomCard.CardName == "Fool") randomCard.cardEffectManager.Fool();
 
@@ -82,7 +86,6 @@ public class RandomCard : MonoBehaviour {
     
     yield return new WaitForSeconds(1.5f);
 
-    GameObject cardParent = transform.parent.transform.parent.gameObject;
     cardParent.GetComponent<AudioSource>().PlayOneShot(randomCard.cardEffectManager.burningCard);
 
     yield return new WaitForSeconds(0.5f);

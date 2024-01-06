@@ -8,8 +8,10 @@ public class PlayerMovement : MonoBehaviour {
 
   public AudioClip [] moveSound;
   [SerializeField] private bool isMoving = false;
+  GameObject activeCard;
 
   private void Update() {
+    activeCard = GameObject.FindGameObjectWithTag("Active Card");
     if(CardEffectManager.isDead) {
       inputActionProperty.action.Disable();
     }
@@ -33,4 +35,5 @@ public class PlayerMovement : MonoBehaviour {
     int randomSound = Mathf.FloorToInt(Random.Range(0f, moveSound.Length));
     gameObject.GetComponent<AudioSource>().PlayOneShot(moveSound[randomSound]);
   }
+
 }

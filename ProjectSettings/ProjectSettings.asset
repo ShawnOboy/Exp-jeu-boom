@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: Experimention en Jeu - TIM Maisonneuve
-  productName: Super_Jeu_VR_De_La_Mort_Qui_Tue
+  companyName: "\xC9quipe 10"
+  productName: Jeu Exp
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -155,8 +155,8 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.ExperimentionenJeuTIMMaisonneuve.Super_Jeu_VR_De_La_Mort_Qui_Tue
-    Standalone: com.Experimention-en-Jeu---TIM-Maisonneuve.Super-Jeu-VR-De-La-Mort-Qui-Tue
+    Android: com.quipe10.JeuExp
+    Standalone: com.--quipe-10.Jeu-Exp
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -749,6 +749,7 @@ PlayerSettings:
   platformArchitecture: {}
   scriptingBackend:
     Android: 1
+    Standalone: 0
   il2cppCompilerConfiguration: {}
   il2cppCodeGeneration: {}
   il2cppStacktraceInformation: {}
